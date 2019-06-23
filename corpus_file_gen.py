@@ -15,10 +15,9 @@
 import re
 import argparse
 import wikipedia as wiki
-from format import pronounce_number, nice_date, nice_time
-from parse import extract_numbers, normalize
-from mycroft.util.lang.format_de import nice_response_de
-import requests
+from lingua_franca.parse.format import pronounce_number, nice_date, nice_time, nice_response_de
+from lingua_franca.parse.parse import extract_numbers, normalize
+#import requests
 
 
 class Name:
