@@ -15,8 +15,8 @@
 import re
 import argparse
 import wikipedia as wiki
-from lingua_franca.lingua_franca.format import pronounce_number, nice_date, nice_time, nice_response_de
-from lingua_franca.lingua_franca.parse import extract_numbers, normalize
+from src.lingua_franca.format import pronounce_number, nice_date, nice_time, nice_response_de
+from src.lingua_franca.parse import extract_numbers, normalize
 #import requests
 
 
