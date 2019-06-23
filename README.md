@@ -1,7 +1,9 @@
-# This is a Corpus File Generator to extract sentence for mycroft-mimic-studio
+# This is a Corpus File Generator
+
+It extract sentence for mycroft-mimic-studio
 
 
-# Installation
+## Installation
 * `pip install -r requirements.txt`
 
 
@@ -16,7 +18,7 @@ can be found in `backend/prompt/`. To use your own corpus follow these steps.
 3. Change the `CORPUS` environment variable in `docker-compose.yml` to your
    corpus name.
    
-#### use the generator
+### use the generator
 
 there is a file generator that generates any sentences from wikipedia. just call the command. 
 * 'python3 backend/corpus_file_gen.py'
