@@ -1,4 +1,2 @@
 -e git+https://github.com/MycroftAI/lingua-franca.git/#egg=lingua-franca
 wikipedia
-zipfile
-urllib2
