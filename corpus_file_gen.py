@@ -164,8 +164,14 @@ class Name:
         #print(sentence)
 
     def voice_web_loader(self, lang, args):
-        url = "https://raw.githubusercontent.com/mozilla/voice-web/master/server/data/"+lang+"/sentence-collector.txt"
-        data = requests.get(url)
+        urlc = "https://raw.githubusercontent.com/mozilla/voice-web/master/server/data/"+lang+"/sentence-collector.txt"
+        urlw = "https://raw.githubusercontent.com/mozilla/voice-web/master/server/data/"+lang+"/wiki."+lang+".txt"
+        data = requests.get(urlc)
+        try:
+            data = data+requests.get(urlw)
+        except:
+            print("no wiki file found")
+            pass
         data.encoding = 'utf-8'
         print(data.text)
         sentence = data.text
