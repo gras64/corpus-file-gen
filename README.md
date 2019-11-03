@@ -1,6 +1,6 @@
 # This is a Corpus File Generator
 
-It extract sentence for mycroft-mimic-studio
+It extract sentence for mycroft-mimic-studio on https://github.com/MycroftAI/mimic-recording-studio.git
 
 
 ## Installation
