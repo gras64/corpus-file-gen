@@ -1,6 +1,7 @@
 # This is a Corpus File Generator
 
-It extract sentence for mycroft-mimic-studio on https://github.com/MycroftAI/mimic-recording-studio.git
+It extract sentence for mycroft-mimic-studio on https://github.com/MycroftAI/mimic-recording-studio.git.
+The data is processed by https://github.com/MycroftAI/lingua-franca.git and all numbers are replaced by letters.
 
 
 ## Installation
