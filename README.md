@@ -17,17 +17,17 @@ can be found in `backend/prompt/`. To use your own corpus follow these steps.
 2. Add your corpus to the `backend/prompt` directory.
 3. Change the `CORPUS` environment variable in `docker-compose.yml` to your
    corpus name.
-   
+
 ### use the generator
 
-there is a file generator that generates any sentences from wikipedia. just call the command. 
-* 'python3 backend/corpus_file_gen.py'
+there is a file generator that generates any sentences from wikipedia. just call the command.
+* 'python3 corpus_file_gen.py'
 to run. you are always asked about the wiki language 'en'.
 
 if you have only a simple text file without line length and tab you can only check the file.
-* python3 backend/corpus_file_gen.py --prepare_file 3 --file english_corpus.csv
+* python3 corpus_file_gen.py --prepare_file 3 --file english_corpus.csv
 if you have already started a file, the generator will expand the file 35K.
-* python3 backend/corpus_file_gen.py --prepare_file 1 --file english_corpus.csv
+* python3 corpus_file_gen.py --prepare_file 1 --file english_corpus.csv
 or --help for help.
 
 This is a very simple generator.

@@ -15,9 +15,9 @@
 import re
 import argparse
 import wikipedia as wiki
-from src.lingua_franca.lingua_franca.format import pronounce_number, nice_date, nice_time, nice_response_de
-from src.lingua_franca.lingua_franca.parse import extract_numbers, normalize
-#import requests
+import requests
+from lingua_franca.format import pronounce_number, nice_date, nice_time
+from lingua_franca.parse import extract_numbers, normalize
 
 
 class Name:
@@ -132,15 +132,21 @@ class Name:
             num = ""
             number = ""
             # print("line bevor"+"\n"+line)
-            num = extract_numbers(line, short_scale=True, ordinals=False,
-                        lang="en-us")
+            try:
+                num = extract_numbers(line, short_scale=False, ordinals=False,
+                            lang="en-us")
+            except:
+                pass
             num = re.sub(r'(\.0)', '', str(num))
             num = re.findall(r'\d+', num)
             if not num is False:
                 for item in num:
                     print("item #"+item)
-                    number = pronounce_number(int(item), lang=lang, places=2,
-                            short_scale=True, scientific=False)
+                    try:
+                        number = pronounce_number(int(item), lang=lang, places=2,
+                                short_scale=False, scientific=False)
+                    except:
+                        number = ""
                     line = line.replace(str(item), number)
             # print("line after"+"\n"+line)
         return line
