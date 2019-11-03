@@ -1,2 +1,2 @@
--e git+https://github.com/MycroftAI/lingua-franca.git/#egg=lingua-franca
+lingua-franca
 wikipedia
