@@ -1,2 +1,2 @@
-lingua-franca
+lingua_franca
 wikipedia
