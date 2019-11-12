@@ -58,8 +58,7 @@ class Name:
                     continue
                 else:
                     sentence = self.edit_sentences(summary)
-                    print("sentence: " "\n"+ str(sentence))
-                    num_lines = self.writing_sentence(sentence[:][0:3], args)
+                    num_lines = self.writing_sentence(sentence[:][0:3], args) #only three sentences per article
             if args.prepare_file is "1":
                 self.check_file(args, lang)
         # print("sentence: " "\n"+ str(sentence))
