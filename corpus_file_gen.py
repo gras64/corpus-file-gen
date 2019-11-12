@@ -52,6 +52,7 @@ class Name:
             if args.disable_downloader is "False":
                 self.poodle_loader(lang, args)
                 self.voice_web_loader(lang, args)
+                print("args line: "+str(args.lines))
             while (num_lines < int(args.lines)):  # edit to set the length of the file
                 summary = self.lookup(lang, wiki.random(pages=1))
                 if summary is None:
@@ -177,17 +178,17 @@ class Name:
             try:
                 data = requests.get(i, stream=True)
                 data.encoding = 'utf-8'
-                for i in data.iter_lines(decode_unicode=True):
-                #print(i)
-                    sentence = i
-                    sentence = self.filter_sentence(sentence, args) # filter data
-                    sentence = sentence.split("\n")
-                    num_lines = self.writing_sentence(sentence, args)
-                    if (num_lines < args.lines):
-                        return True
             except:
                 print("no wiki file found")
-                pass
+                continue
+            for i in data.iter_lines(decode_unicode=True):
+                #print(i)
+                sentence = i
+                sentence = self.filter_sentence(sentence, args) # filter data
+                sentence = sentence.split("\n")
+                num_lines = self.writing_sentence(sentence, args)
+                if (num_lines > int(args.lines)):
+                    return True
 
 
 
