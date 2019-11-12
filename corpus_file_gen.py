@@ -36,6 +36,9 @@ class Name:
             '--disable_downloader', default="False",
             help='disable poodle and mozilla voice downloader')
         parser.add_argument(
+            '--raw', default="False",
+            help='only sentences without number of characters')
+        parser.add_argument(
             '--disable_num_worker', default="False",
             help='disable transalate 1 to one')
         parser.add_argument(
@@ -213,7 +216,10 @@ class Name:
             if len(line) <= 1: #delete sentense with one or zero word
                 continue
             print("line "+str(i)+" "+line+"\t"+str(len(line)))
-            fobj_out.write(str(line)+"\t"+str(len(line))+"\n")
+            if args.raw is "False":
+                fobj_out.write(str(line)+"\t"+str(len(line))+"\n")
+            else:
+                fobj_out.write(str(line)+"\n")
             i = i + 1
         fobj_in.close()
         fobj_out.close()
