@@ -38,6 +38,9 @@ class Name:
         parser.add_argument(
             '--disable_num_worker', default="False",
             help='disable transalate 1 to one')
+        parser.add_argument(
+            '--lines', default="35000",
+            help='set the length of the file')
 
         args = parser.parse_args()
         #  print("args: ""\n"+str(args))
@@ -49,13 +52,14 @@ class Name:
             if args.disable_downloader is "False":
                 self.poodle_loader(lang, args)
                 self.voice_web_loader(lang, args)
-            while (num_lines < 35000):  # edit to set the length of the file
+            while (num_lines < int(args.lines)):  # edit to set the length of the file
                 summary = self.lookup(lang, wiki.random(pages=1))
                 if summary is None:
                     continue
                 else:
                     sentence = self.edit_sentences(summary)
-                    num_lines = self.writing_sentence(sentence, args)
+                    print("sentence: " "\n"+ str(sentence))
+                    num_lines = self.writing_sentence(sentence[:][0:3], args)
             if args.prepare_file is "1":
                 self.check_file(args, lang)
         # print("sentence: " "\n"+ str(sentence))
@@ -106,6 +110,7 @@ class Name:
         while (x < 2):
             result = re.sub(r'(^ *| *$|^[,„“:-]*|^[\S]{,1} )', '', result, flags=re.M)
             x = x + 1
+        result = result.split("\n")
         return result
 
 
@@ -119,6 +124,7 @@ class Name:
 
 
     def writing_sentence(self, sentence, args):
+        sentence = "\n".join(sentence)
         fobj_out = open("prompts"+"/"+args.file, "a")
         fobj_out.write(str(sentence) + "\n")
         num_lines = sum(1 for line in open("prompts"+"/"+args.file))
@@ -160,24 +166,29 @@ class Name:
         sentence = sentence.replace('\n \n','\n').replace('\n \n','\n').replace('\n \n','\n')
         summary = sentence
         sentence = self.filter_sentence(sentence, args) # filter data
+        sentence = sentence.split("\n")
         self.writing_sentence(sentence, args)
         #print(sentence)
 
     def voice_web_loader(self, lang, args):
-        urlc = "https://raw.githubusercontent.com/mozilla/voice-web/master/server/data/"+lang+"/sentence-collector.txt"
-        urlw = "https://raw.githubusercontent.com/mozilla/voice-web/master/server/data/"+lang+"/wiki."+lang+".txt"
-        data = requests.get(urlc)
-        try:
-            data = data+requests.get(urlw)
-        except:
-            print("no wiki file found")
-            pass
-        data.encoding = 'utf-8'
-        print(data.text)
-        sentence = data.text
-        sentence = self.filter_sentence(sentence, args) # filter data
-        self.writing_sentence(sentence, args)
-        #print(sentence)
+        num_lines = 0
+        url = ["https://raw.githubusercontent.com/mozilla/voice-web/master/server/data/"+lang+"/sentence-collector.txt",
+                "https://raw.githubusercontent.com/mozilla/voice-web/master/server/data/"+lang+"/wiki."+lang+".txt"]
+        for i in url:
+            try:
+                data = requests.get(i, stream=True)
+                data.encoding = 'utf-8'
+                for i in data.iter_lines(decode_unicode=True):
+                #print(i)
+                    sentence = i
+                    sentence = self.filter_sentence(sentence, args) # filter data
+                    sentence = sentence.split("\n")
+                    num_lines = self.writing_sentence(sentence, args)
+                    if (num_lines < args.lines):
+                        return True
+            except:
+                print("no wiki file found")
+                pass
 
 
 
